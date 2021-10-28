@@ -1,0 +1,42 @@
+﻿@using Supermarket.Core.Domains;
+@model List<Product>
+
+@{
+    ViewData["Title"] = "Ürün Listesi";
+}
+
+<a href="/Product/AddProduct" class="btn btn-primary">Ürün Ekle</a>
+<br />
+
+@if (Model.Count() < 1 || Model == null)
+{
+    <div class="alert alert-danger" role="alert">
+        Ürün Yok !! Lütfen Ürün Ekle Butonuna Tıklayarak Yeni Ürün Ekleyin...
+    </div>
+}
+else
+{
+    <div class="alert alert-primary" role="alert">
+        Toplam @Model.Count Ürün Var. İyi Alışverişler...
+    </div>
+}
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <p class="card-text">Ürün Fiyatı : @item.Price</p>
+                    <p class="card-text">Stok Adedi : @item.Stock</p>
+                    <button type="button" class="btn btn-primary" data-toggle="addBasketModal" data-target="#addedBasket" data-url="/Product/AddedBasket/@item.Id">Sepete Ekle</button>
+                    <a href="/Product/EditProduct/@item.Id" class="btn btn-success">Ürün Düzenle</a>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteProduct" data-url="/Product/DeletePopUp/@item.Id">Ürün Sil</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div id="PlaceHolderHere"></div>
